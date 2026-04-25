@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Easy Setup Guide</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-main: #1e293b;
+            --text-sub: #64748b;
+            --border-light: #f1f5f9;
+            
+            --color-step1: #4f46e5; 
+            --color-step2: #0ea5e9;
+            --color-step3: #10b981;
+        }
+
+        * { 
+            box-sizing: border-box; 
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            margin: 0;
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* HEADER */
+        .top-header {
+            width: 100%;
+            padding: 20px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .header-left h1 {
+            font-size: 24px;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .header-right {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .status-pill {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            color: var(--text-sub);
+            font-weight: 500;
+        }
+
+        .status-pill b { font-weight: 700; color: var(--text-main); }
+        .fa-edge { color: #0078d7; font-size: 18px; }
+
+        .login-group {
+            display: flex;
+            gap: 10px;
+            margin-left: 10px;
+            padding-left: 20px;
+            border-left: 1px solid var(--border-light);
+        }
+
+        .login-btn {
+            text-decoration: none;
+            background: #f8fafc;
+            width: 34px;
+            height: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .login-btn:hover { 
+            background: var(--text-main);
+            border-color: var(--text-main);
+        }
+        .login-btn:hover i { color: white !important; }
+
+        /* GRID CONFIGURATION */
+        .wrapper {
+            width: 90%;
+            max-width: 1200px;
+            padding: 60px 0;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            /* CRITICAL CHANGE: Prevents buttons from stretching to match height */
+            align-items: start; 
+        }
+
+        .block-btn {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 30px;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            border: 2px solid var(--border-light);
+            cursor: pointer;
+            position: relative;
+            /* Changed from min-height to auto so they stay compact when empty */
+            height: auto;
+            transition: all 0.2s ease;
+        }
+
+        .btn-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 0px; /* Reduced to look better when guideline is empty */
+            width: 100%;
+        }
+
+        /* Adjust margin when guideline has content */
+        .block-btn:hover .btn-header {
+            margin-bottom: 20px;
+        }
+
+        .icon-box {
+            font-size: 20px;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            background: #f8fafc;
+            flex-shrink: 0;
+        }
+
+        .block-btn h2 { 
+            font-size: 18px; 
+            margin: 0; 
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+
+        /* Hover States */
+        .step-1:hover { border-color: var(--color-step1); background: #f5f3ff; }
+        .step-2:hover { border-color: var(--color-step2); background: #f0f9ff; }
+        .step-3:hover { border-color: var(--color-step3); background: #ecfdf5; }
+
+        .step-1 .icon-box { color: var(--color-step1); }
+        .step-2 .icon-box { color: var(--color-step2); }
+        .step-3 .icon-box { color: var(--color-step3); }
+
+        .guideline {
+            font-size: 13px;
+            font-weight: 500;
+            width: 100%;
+            text-align: left;
+            line-height: 1.7;
+            /* Content will push the height of individual button only */
+            overflow: hidden; 
+        }
+
+        /* Border appears only when text is present to keep it clean */
+        .guideline:not(:empty) {
+            border-top: 2px solid rgba(0,0,0,0.03);
+            padding-top: 15px;
+            margin-top: 10px;
+        }
+        
+        .step-1 .guideline { color: var(--color-step1); }
+        .step-2 .guideline { color: var(--color-step2); }
+        .step-3 .guideline { color: var(--color-step3); }
+
+        #copyStatus {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-weight: 700;
+            font-size: 11px;
+            color: var(--color-step3);
+            opacity: 0;
+            transition: 0.2s;
+        }
+
+        @media (max-width: 1000px) {
+            .top-header { flex-direction: column; gap: 20px; padding: 30px 20px; text-align: center; }
+            .header-right { flex-direction: column; gap: 15px; }
+            .grid { grid-template-columns: 1fr; }
+            .login-group { border-left: none; padding-left: 0; margin-left: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="top-header">
+        <div class="header-left">
+            <h1>Welcome!</h1>
+        </div>
+        
+        <div class="header-right">
+            <div class="status-pill">
+                <i class="fab fa-edge"></i>
+                <span>Make sure you have opened this in <b>Microsoft Edge</b></span>
+            </div>
+            <div class="status-pill">
+                <i class="fas fa-lock"></i>
+                <span>Make sure you are logged in to both sites</span>
+                <div class="login-group">
+                    <a href="https://my.learnquraan.co.uk/employees/index.php" target="_blank" class="login-btn" title="Old Portal"><i class="fas fa-external-link-alt" style="color: #ef4444;"></i></a>
+                    <a href="https://emp.learnquraan.co.uk/employees/index.php" target="_blank" class="login-btn" title="New Portal"><i class="fas fa-shield-alt" style="color: #10b981;"></i></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="wrapper">
+        <div class="grid">
+            <a href="https://chromewebstore.google.com/detail/violentmonkey/jinjaccalgkegednnccohejagnlnfdag" 
+               target="_blank" class="block-btn step-1" onmouseenter="typeWriter('g1', '• Click this button\n• Then click GET')" onmouseleave="clearWriter('g1')">
+                <div class="btn-header">
+                    <div class="icon-box"><i class="fas fa-puzzle-piece"></i></div>
+                    <h2>Step 1</h2>
+                </div>
+                <div id="g1" class="guideline"></div>
+            </a>
+
+            <div id="setupBtn" class="block-btn step-2" onmouseenter="typeWriter('g2', '• Click this button\n• In the new page, click the address bar & press Enter\n• Click the [+] icon (top left)\n• Select \'Install from URL\'\n• Press Ctrl + V and click OK\n• Click Install')" onmouseleave="clearWriter('g2')">
+                <div class="btn-header">
+                    <div class="icon-box" id="step2Icon"><i class="fas fa-magic"></i></div>
+                    <h2>Step 2</h2>
+                </div>
+                <div id="g2" class="guideline"></div>
+                <div id="copyStatus"><i class="fas fa-check-circle"></i> Copied!</div>
+            </div>
+
+            <a href="https://my.learnquraan.co.uk/employees/teacher/student-list" 
+               target="_blank" class="block-btn step-3" onmouseenter="typeWriter('g3', '• Click this button\n• Let the table load\n• Click the Copy button')" onmouseleave="clearWriter('g3')">
+                <div class="btn-header">
+                    <div class="icon-box"><i class="fas fa-paper-plane"></i></div>
+                    <h2>Step 3</h2>
+                </div>
+                <div id="g3" class="guideline"></div>
+            </a>
+        </div>
+    </div>
+
+<script>
+    const helperLink = "https://raw.githubusercontent.com/SaleemHafiz/js/refs/heads/main/temp/autofill-checks.js";
+    const dashboard = "chrome-extension://jinjaccalgkegednnccohejagnlnfdag/options/index.html";
+
+    let typingIntervals = {};
+
+    function typeWriter(elementId, text) {
+        let i = 0;
+        const el = document.getElementById(elementId);
+        el.innerHTML = "";
+        clearInterval(typingIntervals[elementId]);
+        
+        const lines = text.split('\n');
+        let currentLine = 0;
+        let currentChar = 0;
+
+        typingIntervals[elementId] = setInterval(() => {
+            if (currentLine < lines.length) {
+                if (currentChar < lines[currentLine].length) {
+                    el.innerHTML += lines[currentLine].charAt(currentChar);
+                    currentChar++;
+                } else {
+                    el.innerHTML += "<br>";
+                    currentLine++;
+                    currentChar = 0;
+                }
+            } else {
+                clearInterval(typingIntervals[elementId]);
+            }
+        }, 12);
+    }
+
+    function clearWriter(elementId) {
+        clearInterval(typingIntervals[elementId]);
+        document.getElementById(elementId).innerHTML = "";
+    }
+
+    document.getElementById('setupBtn').addEventListener('click', function() {
+        navigator.clipboard.writeText(helperLink).then(() => {
+            const status = document.getElementById('copyStatus');
+            const icon = document.getElementById('step2Icon');
+            status.style.opacity = '1';
+            icon.innerHTML = '<i class="fas fa-smile-beam"></i>';
+            
+            setTimeout(() => {
+                window.open(dashboard, '_blank');
+                setTimeout(() => {
+                    status.style.opacity = '0';
+                    icon.innerHTML = '<i class="fas fa-magic"></i>';
+                }, 2000);
+            }, 500);
+        });
+    });
+</script>
+
+</body>
+</html>
